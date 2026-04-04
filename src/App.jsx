@@ -20,7 +20,7 @@ const App = () => {
         <div className="flex-1 flex flex-col">
           <Topbar />
 
-          <div className="flex-1 overflow-y-auto p-4">
+          <div className="flex-1 overflow-y-auto p-6">
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/transaction" element={<Transaction />} />

@@ -4,7 +4,7 @@ import Sidebar from "../components/layout/Sidebar";
 const Transaction = () => {
   return (
     <>
-      <div>Transaction</div>;
+      <div>Transaction</div>
     </>
   );
 };
