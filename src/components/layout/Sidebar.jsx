@@ -12,7 +12,7 @@ import { Link, NavLink } from "react-router-dom";
 
 const Sidebar = () => {
   return (
-    <div className="w-60 h-screen bg-gray-900 text-gray-400 p-4 flex flex-col border-r border-gray-800">
+    <div className="w-64 h-screen bg-gray-900 text-gray-400 p-4 flex flex-col border-r border-gray-800">
       {/* Logo */}
       <Link to="/">
         <div className="logo">
