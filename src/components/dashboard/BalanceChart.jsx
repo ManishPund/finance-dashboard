@@ -19,7 +19,7 @@ const BalanceChart = () => {
   ];
 
   return (
-    <div className="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 flex flex-col min-h-80">
+    <div className="bg-white p-5 rounded-2xl shadow-md border border-gray-100 flex flex-col min-h-80 hover:shadow-lg transition duration-200">
       <h2 className="text-lg font-semibold mb-4">Balance Trend</h2>
 
       <div className="flex-1">

@@ -27,15 +27,15 @@ const ExpensePieChart = () => {
   const total = data.reduce((acc, item) => acc + item.value, 0);
 
   return (
-    <div className="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 min-h-80">
+    <div className="bg-white p-5 rounded-2xl shadow-md border border-gray-100 min-h-80 hover:shadow-lg transition duration-200">
       <h2 className="text-lg font-semibold text-gray-700 mb-4">
         Expenses by Category
       </h2>
 
       {/* FLEX LAYOUT FOR PERFECT ALIGNMENT */}
-      <div className="flex items-center justify-between h-[85%]">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 flex-1">
         {/* PIE CHART */}
-        <div className="w-1/2 h-full">
+        <div className="w-full h-62.5">
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
               <Pie
@@ -65,7 +65,7 @@ const ExpensePieChart = () => {
         </div>
 
         {/* CUSTOM LEGEND (RIGHT SIDE) */}
-        <div className="w-1/2 flex flex-col gap-3 pl-4">
+        <div className="flex flex-col justify-center gap-3">
           {data.map((item, index) => {
             const percent = ((item.value / total) * 100).toFixed(1);
 
