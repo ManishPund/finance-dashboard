@@ -1,7 +1,6 @@
 import SummaryCard from "../components/dashboard/SummaryCard";
 import BalanceChart from "../components/dashboard/BalanceChart";
 import ExpensePieChart from "../components/dashboard/ExpensePieChart";
-import InsightsCard from "../components/dashboard/InsightsCard";
 
 const Dashboard = () => {
   return (
@@ -11,7 +10,7 @@ const Dashboard = () => {
         Welcome back! Here's summary of your finance.
       </h3>
       <SummaryCard />
-      <div className="grid grid-cols-1 xl:grid-cols-2 gap-5 mb-6 items-stretch">
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-5 mb-6 items-stretch min-h-80">
         <BalanceChart />
         <ExpensePieChart />
       </div>
