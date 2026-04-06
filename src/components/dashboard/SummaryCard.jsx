@@ -1,9 +1,8 @@
-
 import Card from "../ui/Card";
 
 const SummaryCard = () => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 my-6">
+    <div className="my-6 grid grid-cols-1 gap-5 xl:grid-cols-3">
       <Card
         color="indigo"
         Title="Total Balance"

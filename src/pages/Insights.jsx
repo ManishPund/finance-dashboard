@@ -7,7 +7,7 @@ import SavingGoals from "../components/Insights/SavingGoals";
 const Insights = () => {
   return (
     <>
-      <h1 className="mb-1 text-2xl font-bold">Insights</h1>
+      <h1 className="mb-1 text-2xl font-bold dark:text-gray-100">Insights</h1>
       {/* Charts */}
       <div className="my-4 grid grid-cols-1 gap-6 xl:grid-cols-2">
         <ChartCard />

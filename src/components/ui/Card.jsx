@@ -2,21 +2,21 @@ import { TrendingDown, TrendingUp, Wallet } from "lucide-react";
 
 const colorVariants = {
   indigo: {
-    bg: "bg-indigo-600/5",
+    bg: "bg-indigo-600/15",
     icon: <Wallet />,
     iconBg: "bg-indigo-600/15",
     color: "text-indigo-600",
     border: "border-indigo-600",
   },
   green: {
-    bg: "bg-green-600/5",
+    bg: "bg-green-600/15",
     icon: <TrendingUp />,
     iconBg: "bg-green-600/15",
-    color: "text-green-600",
+    color: "text-green-800",
     border: "border-green-600",
   },
   red: {
-    bg: "bg-red-600/5",
+    bg: "bg-red-600/15",
     icon: <TrendingDown />,
     iconBg: "bg-red-600/15",
     color: "text-red-600",
@@ -40,22 +40,26 @@ const Card = ({ color = "indigo", Title, Value = 0, Change = 0, type }) => {
 
   return (
     <div
-      className={`${styles.bg} ${styles.border} p-5 rounded-2xl shadow-sm border hover:shadow-md transition duration-200 flex items-center gap-3`}
+      className={`${styles.bg} ${styles.border} flex items-center gap-3 rounded-2xl border p-5 shadow-sm transition duration-200 hover:shadow-md`}
     >
-      <div className={` ${styles.iconBg}  ${styles.color} p-2 rounded-md`}>
+      <div className={` ${styles.iconBg} ${styles.color} rounded-md p-2`}>
         {styles.icon}
       </div>
       <div>
-        <h2 className="font-medium text-sm text-gray-600">{Title}</h2>
-        <div className="flex items-end gap-3 my-2">
-          <p className="text-2xl font-bold text-gray-800">{formattedPrice}</p>
-          <div className="text-sm text-green-600 font-medium">
-            <span className="flex items-end flex-wrap">
+        <h2 className="text-sm font-medium text-gray-600 dark:text-gray-400">
+          {Title}
+        </h2>
+        <div className="my-2 flex items-end gap-3">
+          <p className="text-2xl font-bold text-gray-800 dark:text-gray-100">
+            {formattedPrice}
+          </p>
+          <div className="text-sm font-medium text-green-600">
+            <span className="flex flex-wrap items-end">
               <div
-                className={`flex items-center px-2 py-0.5 text-xs rounded-lg font-medium gap-1 ${
+                className={`flex items-center gap-1 rounded-lg px-2 py-0.5 text-xs font-medium ${
                   isGood
-                    ? "bg-green-600/10 text-green-600"
-                    : "bg-red-600/10 text-red-600"
+                    ? "bg-green-600/10 text-green-600 dark:text-green-400"
+                    : "bg-red-600/10 text-red-600 dark:text-red-400"
                 }`}
               >
                 {isPositive ? (
@@ -65,7 +69,7 @@ const Card = ({ color = "indigo", Title, Value = 0, Change = 0, type }) => {
                 )}
                 {Math.abs(Change)}%
               </div>
-              <p className="text-xs text-gray-500 mt-1">
+              <p className="mt-1 text-xs text-gray-500 dark:text-gray-300">
                 {type === "expense"
                   ? " spending vs last month"
                   : " vs last month"}

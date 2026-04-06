@@ -34,14 +34,14 @@ const SpendingTrends = () => {
   );
 
   return (
-    <div className="h-auto rounded-2xl border border-gray-100 bg-white p-5 shadow-sm transition duration-200 hover:shadow-md">
+    <div className="h-auto rounded-2xl border border-gray-100 bg-white p-5 shadow-sm transition duration-200 hover:shadow-md dark:border-gray-800 dark:bg-gray-700">
       {/* Title */}
-      <h2 className="mb-4 text-lg font-semibold text-gray-700">
+      <h2 className="mb-4 text-lg font-semibold text-gray-700 dark:text-gray-200">
         Spending Trends
       </h2>
 
       {/* Legend */}
-      <div className="mb-4 flex gap-4 text-xs text-gray-500">
+      <div className="mb-4 flex gap-4 text-xs text-gray-500 dark:text-gray-300">
         <div className="flex items-center gap-1">
           <span className="h-3 w-3 rounded-full bg-indigo-500"></span>
           Current
@@ -65,16 +65,16 @@ const SpendingTrends = () => {
             <div key={index}>
               {/* Header */}
               <div className="mb-2 flex items-center justify-between text-sm">
-                <span className="text-gray-600">{item.name}</span>
+                <span className="text-gray-600 dark:text-gray-300">{item.name}</span>
 
                 <div className="flex items-center gap-2">
-                  <span className="font-medium text-gray-800">
+                  <span className="font-medium text-gray-800 dark:text-gray-300">
                     ₹{item.current.toLocaleString()}
                   </span>
 
                   <span
                     className={`text-xs font-medium ${
-                      diff >= 0 ? "text-green-600" : "text-red-600"
+                      diff >= 0 ? "text-green-600 dark:text-green-400" : "text-red-600 dark:text-red-400"
                     }`}
                   >
                     {diff >= 0 ? "+" : ""}₹{diff.toLocaleString()} (

@@ -39,35 +39,43 @@ const TransactionForm = ({ setToggleForm }) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
-      <div className="w-[90%] rounded-2xl bg-white p-6 shadow-xl md:w-125">
-        <h2 className="mb-4 text-lg font-semibold">Add Transaction</h2>
+      <div className="w-[90%] rounded-2xl bg-white p-6 shadow-xl md:w-125 dark:bg-gray-700">
+        <h2 className="mb-4 text-lg font-semibold dark:text-gray-200">
+          Add Transaction
+        </h2>
 
         <form className="space-y-4" onSubmit={handleSubmit}>
           {/* Date */}
           <div>
-            <label className="text-sm text-gray-600">Date</label>
+            <label className="text-sm text-gray-600 dark:text-gray-200">
+              Date
+            </label>
             <input
               type="date"
               name="date"
               required
               onChange={(e) => handleFormData(e.target.name, e.target.value)}
-              className="mt-1 w-full rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500"
+              className=": mt-1 w-full rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500 dark:border-gray-800 dark:text-gray-200"
             />
           </div>
 
           {/* Category */}
           <div>
-            <label className="text-sm text-gray-600">Category</label>
+            <label className="text-sm text-gray-600 dark:text-gray-200">
+              Category
+            </label>
             <select
               name="category"
               onChange={(e) => handleFormData(e.target.name, e.target.value)}
-              className="mt-1 w-full rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500"
+              className="mt-1 w-full rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500 dark:border-gray-800 dark:text-gray-200"
               required
             >
-              <option value="">Select category</option>
+              <option value="" className="dark:bg-gray-600">
+                Select category
+              </option>
 
               {/* Expense */}
-              <optgroup label="Expense">
+              <optgroup label="Expense" className="dark:bg-gray-600">
                 <option value="Food">Food</option>
                 <option value="Rent">Rent</option>
                 <option value="Groceries">Groceries</option>
@@ -83,7 +91,7 @@ const TransactionForm = ({ setToggleForm }) => {
               </optgroup>
 
               {/* Income */}
-              <optgroup label="Income">
+              <optgroup label="Income" className="dark:bg-gray-600">
                 <option value="Salary">Salary</option>
                 <option value="Freelance">Freelance</option>
                 <option value="Business">Business</option>
@@ -98,7 +106,9 @@ const TransactionForm = ({ setToggleForm }) => {
 
           {/* Amount */}
           <div>
-            <label className="text-sm text-gray-600">Amount</label>
+            <label className="text-sm text-gray-600 dark:text-gray-200">
+              Amount
+            </label>
             <input
               type="number"
               name="amount"
@@ -106,14 +116,16 @@ const TransactionForm = ({ setToggleForm }) => {
                 handleFormData(e.target.name, Number(e.target.value))
               }
               placeholder="Enter amount"
-              className="mt-1 w-full rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500"
+              className="p mt-1 w-full rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500 dark:border-gray-800 dark:text-gray-200"
               required
             />
           </div>
 
           {/* Type */}
           <div>
-            <label className="text-sm text-gray-600">Type</label>
+            <label className="text-sm text-gray-600 dark:text-gray-200">
+              Type
+            </label>
 
             <div className="mt-2 flex gap-3">
               {/* Income */}
@@ -163,7 +175,7 @@ const TransactionForm = ({ setToggleForm }) => {
           {/* Actions */}
           <div className="flex justify-end gap-3 pt-2">
             <button
-              className="px-4 py-2 text-gray-600"
+              className="px-4 py-2 text-gray-600 dark:text-gray-200"
               onClick={() => setToggleForm(false)}
             >
               Cancel

@@ -27,15 +27,15 @@ const ExpensePieChart = () => {
   const total = data.reduce((acc, item) => acc + item.value, 0);
 
   return (
-    <div className="bg-white p-5 rounded-2xl shadow-md border border-gray-100 min-h-80 hover:shadow-lg transition duration-200">
-      <h2 className="text-lg font-semibold text-gray-700 mb-4">
+    <div className="min-h-80 rounded-2xl border border-gray-100 bg-white p-5 shadow-md transition duration-200 hover:shadow-lg dark:border-gray-600 dark:bg-gray-800">
+      <h2 className="mb-4 text-lg font-semibold text-gray-700 dark:text-gray-100">
         Expenses by Category
       </h2>
 
       {/* FLEX LAYOUT FOR PERFECT ALIGNMENT */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 flex-1">
+      <div className="grid flex-1 grid-cols-1 gap-4 lg:grid-cols-2">
         {/* PIE CHART */}
-        <div className="w-full h-62.5">
+        <div className="h-62.5 w-full">
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
               <Pie
@@ -76,13 +76,17 @@ const ExpensePieChart = () => {
               >
                 <div className="flex items-center gap-2">
                   <span
-                    className="w-3 h-3 rounded-full"
+                    className="h-3 w-3 rounded-full"
                     style={{ backgroundColor: COLORS[index % COLORS.length] }}
                   />
-                  <span className="text-gray-600">{item.name}</span>
+                  <span className="text-gray-600 dark:text-gray-400">
+                    {item.name}
+                  </span>
                 </div>
 
-                <span className="font-medium text-gray-800">{percent}%</span>
+                <span className="font-medium text-gray-800 dark:text-gray-100">
+                  {percent}%
+                </span>
               </div>
             );
           })}

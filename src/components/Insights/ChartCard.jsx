@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import {
   CartesianGrid,
   Line,
@@ -10,6 +11,7 @@ import {
 } from "recharts";
 
 const ChartCard = () => {
+  const isDark = useSelector((state) => state.ui.darkMode);
   const data = [
     { name: "Jan", Income: 5000, Expense: 4000 },
     { name: "Feb", Income: 6000, Expense: 3000 },
@@ -19,8 +21,10 @@ const ChartCard = () => {
   ];
 
   return (
-    <div className="flex min-h-80 flex-col rounded-2xl border border-gray-100 bg-white p-5 shadow-md transition duration-200 hover:shadow-lg">
-      <h2 className="mb-4 text-lg font-semibold">Monthly Income & Expense</h2>
+    <div className="flex min-h-80 flex-col rounded-2xl border border-gray-100 bg-white p-5 shadow-md transition duration-200 hover:shadow-lg dark:border-gray-800 dark:bg-gray-700">
+      <h2 className="mb-4 text-lg font-semibold dark:text-gray-200">
+        Monthly Income & Expense
+      </h2>
 
       <div className="flex-1">
         <ResponsiveContainer width="100%" height="100%">
@@ -37,15 +41,15 @@ const ChartCard = () => {
               dataKey="name"
               axisLine={false}
               tickLine={false}
-              tick={{ fill: "#6b7280", fontSize: 12 }}
+              tick={{ fill: isDark ? "#9CA3AF" : "#6B7280", fontSize: 12 }}
             />
             <YAxis
               axisLine={false}
               tickLine={false}
-              tick={{ fill: "#6b7280", fontSize: 12 }}
+              tick={{ fill: isDark ? "#9CA3AF" : "#6B7280", fontSize: 12 }}
             />
             <Tooltip />
-            <CartesianGrid stroke="#f1f5f9" />
+            <CartesianGrid stroke={isDark ? "#57657a" : "#E5E7EB"} />
             <Legend verticalAlign="top" height={36} />
 
             <Line
