@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 /* .active {
   background-color: oklch(58.5% 0.233 277.117);

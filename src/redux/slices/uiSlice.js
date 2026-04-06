@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   sidebarOpen: false,
   role: "viewer",
+  darkMode: JSON.parse(localStorage.getItem("darkMode")) ?? false,
 };
 
 const uiSlice = createSlice({
@@ -16,9 +17,13 @@ const uiSlice = createSlice({
     setRole: (state, action) => {
       state.role = action.payload;
     },
+
+    toggleDarkMode: (state) => {
+      state.darkMode = !state.darkMode;
+    },
   },
 });
 
-export const { toggleSidebar, setRole } = uiSlice.actions;
+export const { toggleSidebar, setRole, toggleDarkMode } = uiSlice.actions;
 
 export default uiSlice.reducer;
