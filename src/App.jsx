@@ -9,8 +9,8 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 const App = () => {
-  const [sidebarToggle, setSidebarToggle] = useState(false);
   const darkMode = useSelector((state) => state.ui.darkMode);
+  const sidebarOpen = useSelector((state) => state.ui.sidebarOpen);
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", darkMode);
@@ -23,22 +23,22 @@ const App = () => {
         <div className="flex h-screen bg-gray-100 dark:bg-gray-800">
           {/* Sidebar */}
           <div
-            className={`fixed top-0 left-0 z-50 h-full transform bg-gray-900 transition-transform duration-300 md:block ${sidebarToggle ? "translate-x-0" : "-translate-x-full"} w-full md:w-64 md:translate-x-0`}
+            className={`fixed top-0 left-0 z-50 h-full transform bg-gray-900 transition-transform duration-300 md:block ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} w-full md:w-64 md:translate-x-0`}
           >
-            <Sidebar setSidebarToggle={setSidebarToggle} />
+            <Sidebar />
           </div>
 
           {/* Overlay */}
-          {sidebarToggle && (
+          {sidebarOpen && (
             <div
               className="fixed inset-0 z-40 bg-black/40 md:hidden"
-              onClick={() => setSidebarToggle(false)}
+              onClick={() => dispatch(toggleSidebar())}
             />
           )}
 
           {/* Main Content */}
           <div className="flex flex-1 flex-col md:ml-64">
-            <Topbar setSidebarToggle={setSidebarToggle} />
+            <Topbar />
 
             <div className="flex-1 overflow-y-auto p-6">
               <Routes>

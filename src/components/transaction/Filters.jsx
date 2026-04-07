@@ -1,6 +1,8 @@
 import { Download, Plus, Search } from "lucide-react";
+import { useSelector } from "react-redux";
 
 const Filters = ({ setToggleForm }) => {
+  const role = useSelector((state) => state.ui.role);
   return (
     <>
       <div className="my-4 flex flex-col gap-3 rounded-2xl border border-gray-100 bg-white p-4 shadow-md md:flex-row md:items-center md:justify-between md:p-5 dark:border-gray-800 dark:bg-gray-700">
@@ -23,7 +25,7 @@ const Filters = ({ setToggleForm }) => {
 
       {/* Filters */}
       <div className="my-4 flex flex-col flex-wrap justify-between gap-3 rounded-2xl border border-gray-100 bg-white p-4 shadow-md md:flex-row md:p-5 dark:border-gray-800 dark:bg-gray-700">
-        <div className="flex gap-3">
+        <div className="flex gap-3 flex-wrap">
           <select className="flex-1 rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500 dark:border-gray-800 dark:bg-gray-600 dark:text-gray-200">
             <option>All</option>
           </select>
@@ -36,15 +38,17 @@ const Filters = ({ setToggleForm }) => {
             <option>Sort by recent</option>
           </select>
         </div>
-        <div>
-          <button
-            className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl border border-gray-200 px-4 py-2 font-medium shadow-sm transition-all duration-200 hover:bg-indigo-600 hover:text-white hover:shadow-md md:w-auto dark:border-gray-800 dark:text-gray-200 dark:hover:shadow-gray-400"
-            onClick={() => setToggleForm(true)}
-          >
-            <Plus size={16} />
-            Transaction
-          </button>
-        </div>
+        {role === "Admin" && (
+          <div>
+            <button
+              className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl border border-gray-200 px-4 py-2 font-medium shadow-sm transition-all duration-200 hover:bg-indigo-600 hover:text-white hover:shadow-md md:w-auto dark:border-gray-800 dark:text-gray-200 dark:hover:shadow-gray-400"
+              onClick={() => setToggleForm(true)}
+            >
+              <Plus size={16} />
+              Transaction
+            </button>
+          </div>
+        )}
       </div>
     </>
   );

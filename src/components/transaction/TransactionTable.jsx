@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 const TransactionTable = () => {
   const [pageNo, setPageNo] = useState(1);
   const transactions = useSelector((state) => state.transactions.transactions);
+  const role = useSelector((state) => state.ui.role);
 
   return (
     <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-md dark:border-gray-800 dark:bg-gray-700">
@@ -17,7 +18,7 @@ const TransactionTable = () => {
               <th className="py-3">Category</th>
               <th className="py-3">Amount</th>
               <th className="py-3">Type</th>
-              <th className="py-3">Actions</th>
+              {role === "Admin" && <th className="py-3">Actions</th>}
             </tr>
           </thead>
 
@@ -37,13 +38,15 @@ const TransactionTable = () => {
                     {t.type}
                   </span>
                 </td>
-                <td>
-                  <Edit size={16} className="mr-2 inline cursor-pointer" />
-                  <Trash2
-                    size={16}
-                    className="inline cursor-pointer text-red-500 dark:text-red-400"
-                  />
-                </td>
+                {role === "Admin" && (
+                  <td>
+                    <Edit size={16} className="mr-2 inline cursor-pointer" />
+                    <Trash2
+                      size={16}
+                      className="inline cursor-pointer text-red-500 dark:text-red-400"
+                    />
+                  </td>
+                )}
               </tr>
             ))}
           </tbody>
@@ -73,17 +76,18 @@ const TransactionTable = () => {
                 {t.type}
               </span>
             </div>
-
-            <div className="mt-3 flex gap-3">
-              <Edit
-                size={16}
-                className="cursor-pointer text-indigo-600 dark:text-indigo-400"
-              />
-              <Trash2
-                size={16}
-                className="cursor-pointer text-red-500 dark:text-red-400"
-              />
-            </div>
+            {role === "Admin" && (
+              <div className="mt-3 flex gap-3">
+                <Edit
+                  size={16}
+                  className="cursor-pointer text-indigo-600 dark:text-indigo-400"
+                />
+                <Trash2
+                  size={16}
+                  className="cursor-pointer text-red-500 dark:text-red-400"
+                />
+              </div>
+            )}
           </div>
         ))}
       </div>

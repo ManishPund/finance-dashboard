@@ -1,9 +1,9 @@
-import { Bell, IndianRupee, Menu, Moon, Sun } from "lucide-react";
+import { IndianRupee, Menu, Moon, Sun } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleDarkMode } from "../../redux/slices/uiSlice";
+import { toggleDarkMode, toggleSidebar } from "../../redux/slices/uiSlice";
 import { Link } from "react-router-dom";
 
-const Topbar = ({ setSidebarToggle }) => {
+const Topbar = () => {
   const dispatch = useDispatch();
   const darkMode = useSelector((state) => state.ui.darkMode);
 
@@ -50,7 +50,7 @@ const Topbar = ({ setSidebarToggle }) => {
 
         <div
           className="block md:hidden dark:text-gray-100"
-          onClick={() => setSidebarToggle(true)}
+          onClick={() => dispatch(toggleSidebar())}
         >
           <Menu />
         </div>

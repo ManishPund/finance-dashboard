@@ -8,9 +8,17 @@ import {
   Shield,
   X,
 } from "lucide-react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
+import { setRole, toggleSidebar } from "../../redux/slices/uiSlice";
 
-const Sidebar = ({ setSidebarToggle }) => {
+const Sidebar = () => {
+  const role = useSelector((state) => state.ui.role);
+  const dispatch = useDispatch();
+
+  const handleRole = () => {
+    dispatch(setRole(role === "Viewer" ? "Admin" : "Viewer"));
+  };
   return (
     <div className="flex h-screen flex-col overflow-y-auto border-r border-gray-800 bg-gray-900 p-4 text-gray-400">
       <div className="flex items-center justify-between">
@@ -32,7 +40,7 @@ const Sidebar = ({ setSidebarToggle }) => {
         </Link>
         <div
           className="mb-8 block md:hidden"
-          onClick={() => setSidebarToggle((prev) => !prev)}
+          onClick={() => dispatch(toggleSidebar())}
         >
           <X />
         </div>
@@ -104,12 +112,15 @@ const Sidebar = ({ setSidebarToggle }) => {
           <p className="flex items-center gap-2 text-sm text-gray-400">
             <Shield color="#13D00C" /> Current Role
           </p>
-          <h2 className="text-xl font-semibold text-white">Admin</h2>
+          <h2 className="text-xl font-semibold text-white">{role}</h2>
           <p className="text-xs text-gray-400">
             You can add, edit and delete transactions
           </p>
 
-          <button className="mt-3 flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-gray-600 py-2 text-white transition hover:bg-indigo-500">
+          <button
+            className="mt-3 flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-gray-600 py-2 text-white transition hover:bg-indigo-500"
+            onClick={handleRole}
+          >
             <span>Switch Role</span> <ArrowRightLeft size={16} />
           </button>
         </div>

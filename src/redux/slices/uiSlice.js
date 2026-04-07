@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   sidebarOpen: false,
-  role: "viewer",
+  role: "Viewer",
   darkMode: JSON.parse(localStorage.getItem("darkMode")) ?? false,
 };
 
