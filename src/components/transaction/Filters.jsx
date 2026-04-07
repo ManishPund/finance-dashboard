@@ -25,7 +25,7 @@ const Filters = ({ setToggleForm }) => {
 
       {/* Filters */}
       <div className="my-4 flex flex-col flex-wrap justify-between gap-3 rounded-2xl border border-gray-100 bg-white p-4 shadow-md md:flex-row md:p-5 dark:border-gray-800 dark:bg-gray-700">
-        <div className="flex gap-3 flex-wrap">
+        <div className="flex flex-wrap gap-3">
           <select className="flex-1 rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500 dark:border-gray-800 dark:bg-gray-600 dark:text-gray-200">
             <option>All</option>
           </select>
