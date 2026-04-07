@@ -1,8 +1,71 @@
 import { Download, Plus, Search } from "lucide-react";
 import { useSelector } from "react-redux";
+import { useState, useMemo, useEffect } from "react";
+import { exportTransactionsToPDF } from "../../utils/exportToPDF";
 
-const Filters = ({ setToggleForm }) => {
+const Filters = ({ setToggleForm, onFilterChange }) => {
   const role = useSelector((state) => state.ui.role);
+  const transactions = useSelector((state) => state.transactions.transactions);
+
+  const [searchText, setSearchText] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedType, setSelectedType] = useState("All");
+  const [sortBy, setSortBy] = useState("recent");
+
+  // Get unique categories
+  const categories = useMemo(() => {
+    const cats = new Set(transactions.map((t) => t.category));
+    return ["All", ...Array.from(cats).sort()];
+  }, [transactions]);
+
+  // Filter and sort transactions
+  const filteredTransactions = useMemo(() => {
+    let filtered = transactions;
+
+    // Search filter
+    if (searchText) {
+      const lowerSearch = searchText.toLowerCase();
+      filtered = filtered.filter(
+        (t) =>
+          t.category.toLowerCase().includes(lowerSearch) ||
+          t.date.toLowerCase().includes(lowerSearch) ||
+          t.amount.toString().includes(lowerSearch),
+      );
+    }
+
+    // Category filter
+    if (selectedCategory !== "All") {
+      filtered = filtered.filter((t) => t.category === selectedCategory);
+    }
+
+    // Type filter
+    if (selectedType !== "All") {
+      filtered = filtered.filter((t) => t.type === selectedType);
+    }
+
+    // Sorting
+    if (sortBy === "recent") {
+      filtered = [...filtered].sort(
+        (a, b) => new Date(b.date) - new Date(a.date),
+      );
+    } else if (sortBy === "oldest") {
+      filtered = [...filtered].sort(
+        (a, b) => new Date(a.date) - new Date(b.date),
+      );
+    } else if (sortBy === "high-to-low") {
+      filtered = [...filtered].sort((a, b) => b.amount - a.amount);
+    } else if (sortBy === "low-to-high") {
+      filtered = [...filtered].sort((a, b) => a.amount - b.amount);
+    }
+
+    return filtered;
+  }, [transactions, searchText, selectedCategory, selectedType, sortBy]);
+
+  // Notify parent about filtered data
+  useEffect(() => {
+    onFilterChange(filteredTransactions);
+  }, [filteredTransactions, onFilterChange]);
+
   return (
     <>
       <div className="my-4 flex flex-col gap-3 rounded-2xl border border-gray-100 bg-white p-4 shadow-md md:flex-row md:items-center md:justify-between md:p-5 dark:border-gray-800 dark:bg-gray-700">
@@ -12,12 +75,17 @@ const Filters = ({ setToggleForm }) => {
           <input
             type="text"
             placeholder="Search transactions..."
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
             className="w-full bg-transparent text-sm outline-none placeholder:text-gray-400 dark:text-gray-100"
           />
         </div>
 
         {/* Button */}
-        <button className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl border border-gray-200 px-4 py-2 font-medium shadow-sm transition-all duration-200 hover:bg-indigo-600 hover:text-white hover:shadow-md md:w-auto dark:border-gray-800 dark:text-gray-200 dark:hover:shadow-gray-400">
+        <button
+          onClick={() => exportTransactionsToPDF(filteredTransactions)}
+          className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl border border-gray-200 px-4 py-2 font-medium shadow-sm transition-all duration-200 hover:bg-indigo-600 hover:text-white hover:shadow-md md:w-auto dark:border-gray-800 dark:text-gray-200 dark:hover:shadow-gray-400"
+        >
           <Download size={16} />
           Export
         </button>
@@ -26,16 +94,37 @@ const Filters = ({ setToggleForm }) => {
       {/* Filters */}
       <div className="my-4 flex flex-col flex-wrap justify-between gap-3 rounded-2xl border border-gray-100 bg-white p-4 shadow-md md:flex-row md:p-5 dark:border-gray-800 dark:bg-gray-700">
         <div className="flex flex-wrap gap-3">
-          <select className="flex-1 rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500 dark:border-gray-800 dark:bg-gray-600 dark:text-gray-200">
-            <option>All</option>
+          <select
+            value={selectedCategory}
+            onChange={(e) => setSelectedCategory(e.target.value)}
+            className="flex-1 rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500 dark:border-gray-800 dark:bg-gray-600 dark:text-gray-200"
+          >
+            {categories.map((cat) => (
+              <option key={cat} value={cat}>
+                {cat === "All" ? "All Categories" : cat}
+              </option>
+            ))}
           </select>
 
-          <select className="flex-1 rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500 dark:border-gray-800 dark:bg-gray-600 dark:text-gray-200">
-            <option>Category</option>
+          <select
+            className="flex-1 rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500 dark:border-gray-800 dark:bg-gray-600 dark:text-gray-200"
+            value={selectedType}
+            onChange={(e) => setSelectedType(e.target.value)}
+          >
+            <option value="All">All Types</option>
+            <option value="income">Income</option>
+            <option value="expense">Expense</option>
           </select>
 
-          <select className="flex-1 rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500 dark:border-gray-800 dark:bg-gray-600 dark:text-gray-200">
-            <option>Sort by recent</option>
+          <select
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value)}
+            className="flex-1 rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-indigo-500 dark:border-gray-800 dark:bg-gray-600 dark:text-gray-200"
+          >
+            <option value="recent">Recent First</option>
+            <option value="oldest">Oldest First</option>
+            <option value="high-to-low">High to Low</option>
+            <option value="low-to-high">Low to High</option>
           </select>
         </div>
         {role === "Admin" && (

@@ -3,11 +3,13 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteTransaction } from "../../redux/slices/transactionSlice";
 
-const TransactionTable = ({ setToggleEditForm }) => {
+const TransactionTable = ({ setToggleEditForm, filteredTransactions }) => {
   const [pageNo, setPageNo] = useState(1);
   const dispatch = useDispatch();
-  const transactions = useSelector((state) => state.transactions.transactions);
   const role = useSelector((state) => state.ui.role);
+
+  // Use filtered transactions if provided, otherwise get all from Redux
+  const transactions = filteredTransactions && filteredTransactions.length > 0 ? filteredTransactions : [];
 
   return (
     <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-md dark:border-gray-800 dark:bg-gray-700">

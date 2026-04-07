@@ -8,10 +8,15 @@ const Transaction = () => {
   const [toggleForm, setToggleForm] = useState(false);
   const [toggleEditForm, setToggleEditForm] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState(null);
+  const [filteredTransactions, setFilteredTransactions] = useState([]);
 
   const handleEditTransaction = (transaction) => {
     setSelectedTransaction(transaction);
     setToggleEditForm(true);
+  };
+
+  const handleFilterChange = (transactions) => {
+    setFilteredTransactions(transactions);
   };
 
   return (
@@ -20,8 +25,11 @@ const Transaction = () => {
         Transactions
       </h1>
       <div className="static">
-        <Filters setToggleForm={setToggleForm} />
-        <TransactionTable setToggleEditForm={handleEditTransaction} />
+        <Filters setToggleForm={setToggleForm} onFilterChange={handleFilterChange} />
+        <TransactionTable
+          setToggleEditForm={handleEditTransaction}
+          filteredTransactions={filteredTransactions}
+        />
         {toggleForm && <TransactionForm setToggleForm={setToggleForm} />}
         {toggleEditForm && (
           <EditTransaction
